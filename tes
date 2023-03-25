@@ -24,8 +24,6 @@ if not game:IsLoaded() then
         AimLock = true,
         Prediction = 0.157,
         AimLockKeybind = "Q"
-        FOV = 20
-        ShowFOV = false
     }
     getgenv().DaHoodSettings = DaHoodSettings
     
