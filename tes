@@ -29,16 +29,16 @@ if not game:IsLoaded() then
         AimLockKeybind = "Q"
     }
     getgenv().HoodCustomSettings = HoodCustomSettings
-    
+
     -- // Overwrite to account downed
-    function Aiming.Check()
+    function FOV.Check()
         -- // Check A
-        if not (Aiming.Enabled == true and Aiming.Selected ~= LocalPlayer and Aiming.SelectedPart ~= nil) then
+        if not (FOV.Enabled == true and FOV.Selected ~= LocalPlayer and FOV.SelectedPart ~= nil) then
             return false
         end
     
         -- // Check if downed
-        local Character = Aiming.Character(Aiming.Selected)
+        local Character = FOV.Character(FOV.Selected)
         local KOd = Character:WaitForChild("BodyEffects")["K.O"].Value
         local Grabbed = Character:FindFirstChild("GRABBING_CONSTRAINT") ~= nil
     
@@ -55,9 +55,9 @@ if not game:IsLoaded() then
     local __index
     __index = hookmetamethod(game, "__index", function(t, k)
         -- // Check if it trying to get our mouse's hit or target and see if we can use it
-        if (t:IsA("Mouse") and (k == "Hit" or k == "Target") and Aiming.Check()) then
+        if (t:IsA("Mouse") and (k == "Hit" or k == "Target") and FOV.Check()) then
             -- // Vars
-            local SelectedPart = Aiming.SelectedPart
+            local SelectedPart = FOV.SelectedPart
     
             -- // Hit/Target
             if (HoodCustomSettings.SilentAim and (k == "Hit" or k == "Target")) then
@@ -78,10 +78,10 @@ if not game:IsLoaded() then
     
     mouse.KeyDown:Connect(function(key)
         if key == "v" then
-            if Aiming.Enabled == false then
-            Aiming.Enabled = true
+            if FOV.Enabled == false then
+            FOV.Enabled = true
             else
-            Aiming.Enabled = false
+            FOV.Enabled = false
             end
         end
     end)
