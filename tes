@@ -6,6 +6,7 @@ if not game:IsLoaded() then
     -- // Dependencies
     _G.PRED = 0.0445
     local Aiming = loadstring(game:HttpGet("https://raw.githubusercontent.com/hielo24/yrwar/main/gokodork"))()
+    Aiming.TeamCheck(false)
     -- // Services
     local Workspace = game:GetService("Workspace")
     local Players = game:GetService("Players")
