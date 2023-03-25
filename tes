@@ -5,13 +5,10 @@ if not game:IsLoaded() then
     
     -- // Dependencies
     _G.PRED = 0.0445
-    local FOV = loadstring(game:HttpGet("https://raw.githubusercontent.com/xllaoxxzx/fuckinngr/main/sas"))()
-    local FOV = {
-    FOV.TeamCheck(false)
-    FOV.ShowFOV = false
-    FOV.FOV = 20
-    }
-    getgenv().FOV = FOV
+    local Aiming = loadstring(game:HttpGet("https://raw.githubusercontent.com/xllaoxxzx/fuckinngr/main/sas"))()
+    Aiming.TeamCheck(false)
+    Aiming.ShowFOV = false
+    Aiming.FOV = 20
     -- // Services
     local Workspace = game:GetService("Workspace")
     local Players = game:GetService("Players")
@@ -22,23 +19,25 @@ if not game:IsLoaded() then
     local LocalPlayer = Players.LocalPlayer
     local CurrentCamera = Workspace.CurrentCamera
     
-    local HoodCustomSettings = {
+    local DaHoodSettings = {
         SilentAim = true,
         AimLock = true,
         Prediction = 0.157,
         AimLockKeybind = "Q"
+        FOV = 20
+        ShowFOV = false
     }
-    getgenv().HoodCustomSettings = HoodCustomSettings
-
+    getgenv().DaHoodSettings = DaHoodSettings
+    
     -- // Overwrite to account downed
-    function FOV.Check()
+    function Aiming.Check()
         -- // Check A
-        if not (FOV.Enabled == true and FOV.Selected ~= LocalPlayer and FOV.SelectedPart ~= nil) then
+        if not (Aiming.Enabled == true and Aiming.Selected ~= LocalPlayer and Aiming.SelectedPart ~= nil) then
             return false
         end
     
         -- // Check if downed
-        local Character = FOV.Character(FOV.Selected)
+        local Character = Aiming.Character(Aiming.Selected)
         local KOd = Character:WaitForChild("BodyEffects")["K.O"].Value
         local Grabbed = Character:FindFirstChild("GRABBING_CONSTRAINT") ~= nil
     
@@ -55,14 +54,14 @@ if not game:IsLoaded() then
     local __index
     __index = hookmetamethod(game, "__index", function(t, k)
         -- // Check if it trying to get our mouse's hit or target and see if we can use it
-        if (t:IsA("Mouse") and (k == "Hit" or k == "Target") and FOV.Check()) then
+        if (t:IsA("Mouse") and (k == "Hit" or k == "Target") and Aiming.Check()) then
             -- // Vars
-            local SelectedPart = FOV.SelectedPart
+            local SelectedPart = Aiming.SelectedPart
     
             -- // Hit/Target
-            if (HoodCustomSettings.SilentAim and (k == "Hit" or k == "Target")) then
+            if (DaHoodSettings.SilentAim and (k == "Hit" or k == "Target")) then
                 -- // Hit to account prediction
-                local Hit = SelectedPart.CFrame + (SelectedPart.Velocity * HoodCustomSettings.Prediction)
+                local Hit = SelectedPart.CFrame + (SelectedPart.Velocity * DaHoodSettings.Prediction)
     
                 -- // Return modded val
                 return (k == "Hit" and Hit or SelectedPart)
@@ -78,10 +77,10 @@ if not game:IsLoaded() then
     
     mouse.KeyDown:Connect(function(key)
         if key == "v" then
-            if FOV.Enabled == false then
-            FOV.Enabled = true
+            if Aiming.Enabled == false then
+            Aiming.Enabled = true
             else
-            FOV.Enabled = false
+            Aiming.Enabled = false
             end
         end
     end)
@@ -92,7 +91,7 @@ if not game:IsLoaded() then
         local Value = tostring(ping)
         local pingValue = Value:split(" ")
         local PingNumber = pingValue[1]
-        HoodCustomSettings.Prediction = PingNumber / 1000 + _G.PRED
+        DaHoodSettings.Prediction = PingNumber / 1000 + _G.PRED
     end)
     
     -- // Resolver
