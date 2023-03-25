@@ -4,31 +4,16 @@ if not game:IsLoaded() then
     
     
     -- // Dependencies
-    local FOVSettings = {
     _G.PRED = 0.0445
     local Aiming = loadstring(game:HttpGet("https://raw.githubusercontent.com/hielo24/yrwar/main/gokodork"))()
     Aiming.TeamCheck(false)
     Aiming.ShowFOV = false
     Aiming.FOV = 20
-    }
-    getgenv().FOVSettings = FOVSettings
     -- // Services
     local Workspace = game:GetService("Workspace")
     local Players = game:GetService("Players")
     local RunService = game:GetService("RunService")
     local UserInputService = game:GetService("UserInputService")
-    
-    -- // Vars
-    local LocalPlayer = Players.LocalPlayer
-    local CurrentCamera = Workspace.CurrentCamera
-    
-    local DaHoodSettings = {
-        SilentAim = true,
-        AimLock = true,
-        Prediction = 0.157,
-        AimLockKeybind = Enum.KeyCode.E
-    }
-    getgenv().DaHoodSettings = DaHoodSettings
     
     -- // Overwrite to account downed
     function Aiming.Check()
